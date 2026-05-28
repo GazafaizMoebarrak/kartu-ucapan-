@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Happy Birthday, Aluna 🌹</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg: #2a0008;
+  --bg2: #1a0005;
+  --crimson: #8b0000;
+  --rose: #c0392b;
+  --gold: #c9a84c;
+  --gold-lt: #e8d08a;
+  --cream: #f5ede0;
+  --text: #f0dfd0;
+}
+
+html, body {
+  width:100%; min-height:100vh;
+  background: radial-gradient(ellipse at top, #3d0010 0%, #1a0005 60%, #0d0003 100%);
+  color: var(--text);
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+}
+
+/* ---- PARTICLES ---- */
+#particles { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.petal {
+  position:absolute; width:8px; height:11px;
+  background: radial-gradient(ellipse, #d4526e 30%, #7b0d1e 100%);
+  border-radius: 50% 0 50% 0;
+  opacity:0;
+  animation: petalFall linear infinite;
+}
+@keyframes petalFall {
+  0%   { transform: translateY(-10px) rotate(0deg) translateX(0); opacity:.9; }
+  50%  { transform: translateY(50vh) rotate(180deg) translateX(30px); opacity:.6; }
+  100% { transform: translateY(105vh) rotate(360deg) translateX(-20px); opacity:0; }
+}
+.star-dot {
+  position:absolute; border-radius:50%;
+  background: var(--gold-lt);
+  animation: twinkle ease-in-out infinite;
+}
+@keyframes twinkle { 0%,100%{opacity:0} 50%{opacity:.8} }
+
+/* ---- PAGES ---- */
+.page { display:none; min-height:100vh; position:relative; z-index:1; }
+.page.active { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+
+/* ========== PAGE 1: ENVELOPE ========== */
+#page-envelope {
+  cursor: pointer;
+  padding: 40px 20px;
+  text-align: center;
+}
+.env-hint-top {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  color: var(--gold-lt);
+  opacity:.7;
+  letter-spacing:3px;
+  margin-bottom:30px;
+  animation: fadeUpIn .8s ease forwards;
+}
+.env-wrapper {
+  position:relative;
+  animation: floatEnv 3.5s ease-in-out infinite, fadeUpIn .8s ease .1s forwards;
+  opacity:0;
+}
+@keyframes floatEnv { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+@keyframes fadeUpIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+/* Envelope body */
+.env-body {
+  width:300px; height:210px;
+  background: linear-gradient(160deg, #ede0c4, #f5ecd4, #e8d5a8);
+  border-radius:4px;
+  position:relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(201,168,76,.15), inset 0 1px 0 rgba(255,255,255,.3);
+  overflow:hidden;
+}
+/* left triangle */
+.env-body::before {
+  content:'';
+  position:absolute; top:0; left:0;
+  border-top: 105px solid #d4b87a;
+  border-right: 150px solid transparent;
+  z-index:2;
+}
+/* right triangle */
+.env-body::after {
+  content:'';
+  position:absolute; top:0; right:0;
+  border-top: 105px solid #c9a86a;
+  border-left: 150px solid transparent;
+  z-index:2;
+}
+/* bottom flap */
+.env-bottom {
+  position:absolute; bottom:0; left:0; right:0;
+  height:120px;
+  background: linear-gradient(to top, #c8a355, #e0c880);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  z-index:3;
+}
+.wax-seal {
+  position:absolute; bottom:18px; left:50%; transform:translateX(-50%);
+  width:56px; height:56px;
+  background: radial-gradient(circle at 35% 35%, #e05050, #8b0000, #3d0009);
+  border-radius:50%;
+  z-index:10;
+  box-shadow: 0 4px 20px rgba(0,0,0,.5), inset 0 2px 5px rgba(255,255,255,.15);
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px;
+  animation: sealPulse 2s ease-in-out infinite;
+}
+@keyframes sealPulse {
+  0%,100%{ box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 0 0 rgba(201,168,76,.5); }
+  50%{ box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 0 14px rgba(201,168,76,0); }
+}
+
+.press-text {
+  font-family:'Dancing Script', cursive;
+  font-size:3.5rem;
+  color:rgba(255,255,255,.07);
+  position:absolute;
+  right:-30px; top:50%; transform:translateY(-50%) rotate(90deg);
+  white-space:nowrap;
+  user-select:none;
+  pointer-events:none;
+  animation: fadeUpIn .8s ease .2s forwards; opacity:0;
+}
+.tap-lanjut {
+  position:absolute;
+  left:-20px; top:50%; transform:translateY(-50%) rotate(-90deg);
+  font-family:'Dancing Script', cursive;
+  font-size:1rem;
+  color:rgba(201,168,76,.5);
+  white-space:nowrap;
+  user-select:none;
+}
+
+.env-tap {
+  margin-top:32px;
+  font-family:'Dancing Script', cursive;
+  font-size:1.4rem;
+  color:var(--gold-lt);
+  animation: blink 2s ease-in-out infinite, fadeUpIn .8s ease .3s forwards;
+  opacity:0;
+}
+@keyframes blink { 0%,100%{opacity:.9} 50%{opacity:.2} }
+
+/* ========== PAGE 2: CHOOSE SURPRISE ========== */
+#page-choose {
+  padding:50px 24px 60px;
+  text-align:center;
+}
+.choose-title {
+  font-family:'Dancing Script', cursive;
+  font-size:3.2rem;
+  color:rgba(255,255,255,.06);
+  position:absolute;
+  right:-20px; top:50%; transform:translateY(-50%) rotate(90deg);
+  white-space:nowrap;
+  pointer-events:none;
+  user-select:none;
+}
+.choose-heading {
+  font-family:'Dancing Script', cursive;
+  font-size:2.4rem;
+  color:var(--gold-lt);
+  margin-bottom:8px;
+  text-shadow:0 0 30px rgba(201,168,76,.3);
+  animation: fadeUpIn .6s ease forwards;
+}
+.choose-sub {
+  font-size:.9rem; letter-spacing:4px; text-transform:uppercase;
+  color:var(--text); opacity:.45; margin-bottom:44px;
+  animation: fadeUpIn .6s ease .1s forwards; opacity:0;
+}
+.choose-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:18px; width:100%; max-width:340px;
+  animation: fadeUpIn .6s ease .2s forwards; opacity:0;
+}
+.choose-btn {
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(201,168,76,.25);
+  border-radius:8px;
+  padding:28px 16px 20px;
+  cursor:pointer;
+  transition: all .3s;
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+  position:relative; overflow:hidden;
+}
+.choose-btn::before {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(circle at 50% 0%, rgba(201,168,76,.12), transparent 70%);
+  opacity:0; transition:.3s;
+}
+.choose-btn:hover::before, .choose-btn:active::before { opacity:1; }
+.choose-btn:hover { border-color:rgba(201,168,76,.6); transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,.3); }
+.choose-btn:active { transform:scale(.97); }
+.btn-icon { font-size:2.6rem; display:block; }
+.btn-label {
+  font-family:'Dancing Script', cursive;
+  font-size:1.2rem;
+  color:var(--gold-lt);
+  letter-spacing:1px;
+}
+.btn-sub { font-size:.75rem; color:var(--text); opacity:.45; letter-spacing:2px; text-transform:uppercase; }
+
+/* ========== PAGE 3: JOURNEY (Gallery) ========== */
+#page-journey {
+  padding:40px 20px 70px;
+  align-items:stretch;
+  position:relative;
+}
+.page-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:28px; width:100%;
+}
+.back-btn {
+  background:#2d8a00;
+  color:#fff;
+  font-family:'Dancing Script', cursive;
+  font-size:1rem;
+  padding:8px 18px 8px 12px;
+  border-radius:30px;
+  cursor:pointer;
+  display:flex; align-items:center; gap:6px;
+  box-shadow:0 4px 15px rgba(0,0,0,.4);
+  transition:.2s;
+  border:none;
+}
+.back-btn:hover { background:#1e6e00; transform:scale(1.04); }
+.page-title-script {
+  font-family:'Dancing Script', cursive;
+  font-size:2rem;
+  color:var(--gold-lt);
+  text-align:center;
+}
+.spacer { width:70px; }
+
+.gallery-description {
+  text-align:center; font-style:italic; opacity:.6;
+  font-size:.95rem; margin-bottom:24px; letter-spacing:1px;
+}
+.gallery-col { display:flex; flex-direction:column; gap:12px; width:100%; }
+.gallery-item {
+  width:100%; border-radius:6px; overflow:hidden;
+  border:1px solid rgba(201,168,76,.2);
+  background:rgba(255,255,255,.04);
+  aspect-ratio:3/2;
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+.gallery-item .ph-icon { font-size:2.5rem; opacity:.2; }
+.gallery-item .ph-label {
+  position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
+  font-family:'Dancing Script',cursive; font-size:.9rem;
+  color:var(--gold-lt); opacity:.5; white-space:nowrap;
+}
+/* pink heart flying animation */
+.heart-fly {
+  position:fixed; pointer-events:none; z-index:100;
+  font-size:2rem;
+  animation: heartFly 1.5s ease-out forwards;
+}
+@keyframes heartFly {
+  0%{opacity:1;transform:translateY(0) scale(1)}
+  100%{opacity:0;transform:translateY(-150px) scale(.3)}
+}
+
+/* ========== PAGE 4: MOMENT (Letter) ========== */
+#page-moment {
+  padding:40px 20px 70px;
+  align-items:stretch;
+}
+.letter-card {
+  background:linear-gradient(150deg, #fffdf8, #f8f0e0);
+  border-radius:6px;
+  padding:36px 28px 32px;
+  color:#3d1500;
+  box-shadow:0 25px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(201,168,76,.3);
+  position:relative; overflow:hidden;
+  animation: fadeUpIn .7s ease forwards;
+}
+.roses-top {
+  text-align:center; font-size:2rem; margin-bottom:12px;
+  line-height:1;
+}
+.letter-salutation {
+  font-family:'Dancing Script',cursive;
+  font-size:2rem; color:#8b0000;
+  margin-bottom:16px;
+}
+.letter-body {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem; line-height:1.95;
+  color:#4a1a00; font-style:italic;
+}
+.letter-close {
+  margin-top:24px; text-align:right;
+}
+.letter-close .with-love {
+  font-family:'Dancing Script',cursive;
+  font-size:1.2rem; color:#8b0000; display:block;
+}
+.letter-close .sender {
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem; font-weight:700;
+  color:#3d1500; display:block; margin-top:4px;
+}
+.letter-photo {
+  margin-top:20px;
+  border:6px solid #c9a84c;
+  border-radius:4px;
+  background:rgba(0,0,0,.1);
+  aspect-ratio:4/3;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+  box-shadow:0 8px 30px rgba(0,0,0,.3);
+}
+.letter-photo .ph-icon { font-size:2.5rem; opacity:.25; }
+.letter-photo-label {
+  position:absolute; bottom:10px; right:10px;
+  font-family:'Dancing Script',cursive;
+  font-size:.85rem; color:#c9a84c; opacity:.7;
+}
+/* vintage camera icon */
+.cam-icon {
+  position:absolute; bottom:-5px; left:-8px;
+  font-size:2.5rem; opacity:.5;
+  transform:rotate(-15deg);
+}
+
+/* ========== PAGE 5: PLAYLIST ========== */
+#page-playlist {
+  padding:40px 20px 70px;
+  align-items:stretch;
+}
+.playlist-card {
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(201,168,76,.2);
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+.playlist-header {
+  background: linear-gradient(135deg, rgba(139,0,0,.4), rgba(42,0,8,.6));
+  padding:20px 24px;
+  display:flex; align-items:center; gap:14px;
+  border-bottom:1px solid rgba(201,168,76,.15);
+}
+.vinyl {
+  width:52px; height:52px;
+  background: radial-gradient(circle, #111 30%, #333 31%, #222 50%, #c0392b 51%, #8b0000 100%);
+  border-radius:50%;
+  animation: spin 4s linear infinite;
+  box-shadow:0 4px 15px rgba(0,0,0,.5);
+  flex-shrink:0;
+}
+@keyframes spin { to{transform:rotate(360deg)} }
+.playlist-meta p:first-child {
+  font-size:.75rem; letter-spacing:3px; text-transform:uppercase;
+  color:var(--gold); opacity:.8; margin-bottom:3px;
+}
+.playlist-meta p:last-child {
+  font-family:'Dancing Script',cursive;
+  font-size:1.3rem; color:var(--text);
+}
+.track-item {
+  padding:16px 24px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  display:flex; align-items:center; gap:14px;
+  transition:.2s; cursor:pointer;
+}
+.track-item:hover { background:rgba(255,255,255,.04); }
+.track-num { font-size:.85rem; color:var(--gold); opacity:.5; width:20px; text-align:center; }
+.track-info { flex:1; }
+.track-title { font-family:'Playfair Display',serif; font-size:1rem; color:var(--text); }
+.track-artist { font-size:.85rem; color:var(--text); opacity:.5; margin-top:2px; }
+.track-dur { font-size:.8rem; color:var(--text); opacity:.4; }
+.yt-embed {
+  margin:0; padding:0;
+  background:#000;
+}
+.yt-embed iframe {
+  width:100%; display:block;
+  height:200px; border:none;
+}
+.yt-note {
+  padding:12px 24px 16px;
+  font-size:.8rem; color:var(--text); opacity:.4;
+  font-style:italic; text-align:center;
+}
+
+/* ========== PAGE 6: GIFT (QR) ========== */
+#page-gift {
+  padding:40px 20px 70px;
+  align-items:stretch;
+}
+.gift-title {
+  font-family:'Dancing Script',cursive;
+  font-size:2.8rem; color:var(--gold-lt);
+  text-align:center; margin-bottom:6px;
+  text-shadow:0 0 30px rgba(201,168,76,.4);
+}
+.gift-sub {
+  text-align:center; font-size:.85rem;
+  letter-spacing:3px; text-transform:uppercase;
+  color:var(--text); opacity:.5; margin-bottom:30px;
+}
+.qr-frame {
+  background: linear-gradient(135deg, rgba(245,237,224,.95), rgba(235,220,195,.97));
+  border-radius:12px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 25px 70px rgba(0,0,0,.5), 0 0 0 2px var(--gold);
+  position:relative; overflow:hidden;
+}
+.qr-frame::before {
+  content:'🌹';
+  position:absolute; top:12px; right:12px; font-size:1.4rem; opacity:.4;
+}
+.qr-frame::after {
+  content:'🌹';
+  position:absolute; bottom:12px; left:12px; font-size:1.4rem; opacity:.4;
+}
+.qr-wrap {
+  display:inline-block;
+  background:white;
+  padding:12px;
+  border-radius:8px;
+  box-shadow:0 4px 20px rgba(0,0,0,.2);
+}
+.qr-wrap img { display:block; width:200px; height:200px; }
+.qr-name {
+  font-family:'Dancing Script',cursive;
+  font-size:1.6rem; color:#3d1500;
+  margin-top:16px;
+}
+.qr-from {
+  font-size:.85rem; color:#6a3010; opacity:.7;
+  margin-top:4px; letter-spacing:1px;
+}
+.qr-url {
+  margin-top:14px; font-size:.72rem;
+  color:var(--gold); word-break:break-all; opacity:.7;
+}
+.copy-btn {
+  margin-top:12px;
+  background:var(--gold);
+  color:#3d1500;
+  border:none; border-radius:20px;
+  padding:8px 22px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:.95rem; cursor:pointer;
+  transition:.2s; letter-spacing:1px;
+}
+.copy-btn:hover { background:var(--gold-lt); }
+
+/* ---- ORNAMENT DIVIDER ---- */
+.divider {
+  display:flex; align-items:center; gap:10px;
+  color:var(--gold); font-size:.7rem; letter-spacing:4px;
+  margin:20px 0;
+}
+.divider::before, .divider::after {
+  content:''; flex:1; height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+}
+
+/* ---- TOAST ---- */
+#toast {
+  position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+  background:rgba(201,168,76,.9); color:#3d1500;
+  padding:10px 24px; border-radius:20px;
+  font-family:'Cormorant Garamond',serif; font-size:1rem;
+  opacity:0; transition:.3s; pointer-events:none; z-index:999; white-space:nowrap;
+}
+#toast.show { opacity:1; }
+
+/* floating script bg text */
+.bg-script {
+  position:absolute; pointer-events:none; user-select:none;
+  font-family:'Dancing Script',cursive;
+  color:rgba(255,255,255,.035);
+  white-space:nowrap;
+}
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+<div id="toast">Link disalin! 🌹</div>
+
+<!-- ===== PAGE 1: ENVELOPE ===== -->
+<div class="page active" id="page-envelope" onclick="goTo('choose')">
+  <div class="bg-script" style="font-size:4rem;bottom:30%;right:-30px;transform:rotate(90deg)">Press the Envelope</div>
+  <div class="bg-script" style="font-size:1.4rem;left:-10px;top:45%;transform:rotate(-90deg)">tap to lanjut</div>
+
+  <p class="env-hint-top">✉ aku ada sesuatu buat kamu</p>
+
+  <div class="env-wrapper">
+    <div class="env-body">
+      <div class="env-bottom"></div>
+      <div class="wax-seal">🌹</div>
+    </div>
+  </div>
+
+  <p class="env-tap">tap to open ✨</p>
+</div>
+
+<!-- ===== PAGE 2: CHOOSE SURPRISE ===== -->
+<div class="page" id="page-choose" style="position:relative;">
+  <div class="bg-script" style="font-size:3.8rem;right:-30px;top:50%;transform:translateY(-50%) rotate(90deg)">Choose the Surprise</div>
+
+  <h1 class="choose-heading">Choose the Surprise ✨</h1>
+  <p class="choose-sub" style="animation-fill-mode:forwards;">Untuk Aluna Tabina Aridhana</p>
+
+  <div class="choose-grid">
+    <div class="choose-btn" onclick="goTo('journey')">
+      <span class="btn-icon">📷</span>
+      <span class="btn-label">Journey</span>
+      <span class="btn-sub">Memories</span>
+    </div>
+    <div class="choose-btn" onclick="goTo('moment')">
+      <span class="btn-icon">🕰️</span>
+      <span class="btn-label">Moment</span>
+      <span class="btn-sub">Letter</span>
+    </div>
+    <div class="choose-btn" onclick="goTo('playlist')">
+      <span class="btn-icon">🎵</span>
+      <span class="btn-label">Playlist</span>
+      <span class="btn-sub">Music</span>
+    </div>
+    <div class="choose-btn" onclick="goTo('gift')">
+      <span class="btn-icon">🎁</span>
+      <span class="btn-label">Gift</span>
+      <span class="btn-sub">QR Code</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE 3: JOURNEY (GALLERY) ===== -->
+<div class="page" id="page-journey">
+  <div class="page-header">
+    <button class="back-btn" onclick="goTo('choose')">◀ BACK</button>
+    <p class="page-title-script">Journey 📷</p>
+    <div class="spacer"></div>
+  </div>
+  <p class="gallery-description">our precious memories together 🌹</p>
+  <div class="gallery-col">
+
+  <div class="gallery-item">
+    <img src="gambar1.jpeg" alt="Journey Photo"
+    style="width:100%; height:100%; object-fit:cover;">
+    <span class="ph-label">our cute moment 🌹</span>
+</div>
+    <div class="gallery-item">
+    <img src="gambar3.jpeg" alt="Journey Photo"
+    style="width:100%; height:100%; object-fit:cover;">
+    <span class="ph-label">our cute moment 🌹</span>
+  </div>
+    <div class="gallery-item">
+    <img src="gambar4.jpeg" alt="Journey Photo"
+    style="width:100%; height:100%; object-fit:cover;">
+    <span class="ph-label">our cute moment 🌹</span>
+  </div>
+  </div>
+</div>
+
+<!-- ===== PAGE 4: MOMENT (LETTER) ===== -->
+<div class="page" id="page-moment">
+  <div class="page-header">
+    <button class="back-btn" onclick="goTo('choose')">◀ BACK</button>
+    <p class="page-title-script">Moment 🕰️</p>
+    <div class="spacer"></div>
+  </div>
+
+  <div class="letter-card">
+    <div class="roses-top">🌹🌹🌹</div>
+    <div class="divider">Hey Love</div>
+    <p class="letter-salutation">Hey Love,</p>
+    <p class="letter-body">
+      Selamat ulang tahun, Aluna sayang 🎂<br><br>
+      happy birthday my sweet baby💞!
+I hope you enjoy your special day,filled with joy and happiness.thank you for always being so loving and kind to me.here's to more memories together.I Love you so much 💞🥳😘.<br><br>
+      <em>"With you, even the simplest days feel incredibly special — thank you for filling my life with so much love and warmth.</em><br><br>
+      Semoga di usiamu yang baru ini, kamu selalu sehat, bahagia, dan dikelilingi oleh semua hal indah yang kamu pantas dapatkan. Aku bersyukur bisa ada di samping kamu. 🌹
+    </p>
+    <div class="letter-close">
+      <span class="with-love">With all my love,</span>
+      <span class="sender">Dava Firjani 💌</span>
+    </div>
+
+    <div class="letter-photo" style="margin-top:20px;">
+
+  <img src="gambar2.jpeg" alt="Memory"
+  style="width:100%; height:100%; object-fit:cover;">
+
+  <span class="letter-photo-label">our memory 🌹</span>
+
+  <div class="cam-icon">📷</div>
+
+</div>
+  </div>
+</div>
+
+<!-- ===== PAGE 5: PLAYLIST ===== -->
+<div class="page" id="page-playlist">
+  <div class="page-header">
+    <button class="back-btn" onclick="goTo('choose')">◀ BACK</button>
+    <p class="page-title-script">Playlist 🎵</p>
+    <div class="spacer"></div>
+  </div>
+
+  <div class="playlist-card">
+    <div class="playlist-header">
+      <div class="vinyl"></div>
+      <div class="playlist-meta">
+        <p>Special Song For You</p>
+        <p>Dava → Aluna 🌹</p>
+      </div>
+    </div>
+
+    <div class="track-item">
+      <span class="track-num">01</span>
+      <div class="track-info">
+        <p class="track-title">Dewi</p>
+        <p class="track-artist">Alexa</p>
+      </div>
+      <span class="track-dur">3:21</span>
+    </div>
+
+    <div class="yt-embed">
+      <video autoplay loop controls width="775">
+    <source src="alexa-dewi-official-video-ytshorts.savetube.vip.mp4" type="video/mp4">
+</video>
+    </div>
+    <p class="yt-note">🎵 lagu ini untukmu, Aluna 🌹</p>
+  </div>
+</div>
+
+<!-- ===== PAGE 6: GIFT (QR) ===== -->
+<div class="page" id="page-gift">
+  <div class="page-header">
+    <button class="back-btn" onclick="goTo('choose')">◀ BACK</button>
+    <p class="page-title-script">Gift 🎁</p>
+    <div class="spacer"></div>
+  </div>
+
+  <p class="gift-title">Untuk Aluna 🌹</p>
+  <p class="gift-sub">scan & bagikan ke yang tersayang</p>
+
+  <div class="qr-frame">
+    <div class="qr-wrap">
+      <img id="qr-img" src="" alt="QR Code" width="200" height="200"/>
+    </div>
+    <p class="qr-name">Aluna Tabina Aridhana</p>
+    <p class="qr-from">from Dava Firman, with love 💌</p>
+    <p class="qr-url" id="qr-url-text">loading...</p>
+    <button class="copy-btn" onclick="copyLink()">📋 Salin Link</button>
+  </div>
+
+  <div class="divider" style="margin-top:24px;">✦ ✦ ✦</div>
+  <p style="text-align:center;font-size:.8rem;opacity:.3;letter-spacing:3px;text-transform:uppercase;">made with love · dava untuk aluna · 2026</p>
+</div>
+
+<script>
+/* ---- PARTICLES INIT ---- */
+const pc = document.getElementById('particles');
+// stars
+for(let i=0;i<70;i++){
+  const s=document.createElement('div');
+  s.className='star-dot';
+  const sz=Math.random()*2+1;
+  s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${2+Math.random()*4}s;animation-delay:${Math.random()*5}s`;
+  pc.appendChild(s);
+}
+// petals
+function spawnPetal(){
+  const p=document.createElement('div');
+  p.className='petal';
+  p.style.left=Math.random()*100+'vw';
+  p.style.width=(6+Math.random()*6)+'px';
+  p.style.height=(8+Math.random()*8)+'px';
+  p.style.animationDuration=(6+Math.random()*8)+'s';
+  p.style.animationDelay=(Math.random()*3)+'s';
+  pc.appendChild(p);
+  setTimeout(()=>p.remove(),14000);
+}
+setInterval(spawnPetal,700);
+
+/* ---- NAVIGATION ---- */
+function goTo(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target=document.getElementById('page-'+id);
+  target.classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='gift') generateQR();
+}
+
+/* ---- QR CODE ---- */
+function generateQR(){
+  const url=window.location.href;
+  document.getElementById('qr-url-text').textContent=url;
+  // heart-shaped QR via qrserver with custom colors
+  const qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}&color=8b0000&bgcolor=ffffff&qzone=1&margin=0`;
+  document.getElementById('qr-img').src=qrUrl;
+}
+
+/* ---- COPY LINK ---- */
+function copyLink(){
+  const url=window.location.href;
+  navigator.clipboard.writeText(url).then(()=>{
+    const t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2500);
+  });
+}
+
+/* ---- HEART FLY on gallery tap ---- */
+document.querySelectorAll('.gallery-item').forEach(item=>{
+  item.addEventListener('click',function(e){
+    const h=document.createElement('div');
+    h.className='heart-fly';
+    h.textContent='💕';
+    h.style.left=(e.clientX-20)+'px';
+    h.style.top=(e.clientY-20)+'px';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1500);
+  });
+});
+</script>
+</body>
+</html>
